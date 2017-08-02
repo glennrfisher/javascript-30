@@ -31,28 +31,52 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const middleAges = inventors.filter(x => 1500 <= x.year && x.year < 1600);
+    console.table(middleAges);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    const names = inventors.map(x => x.first + ' ' + x.last);
+    console.log(names);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const byBirthdate = inventors.sort((x, y) => x.year - y.year);
+    console.table(byBirthdate);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    const years = inventors.reduce((years, inventor) => years += inventor.passed - inventor.year, 0);
+    console.log(years);
 
     // 5. Sort the inventors by years lived
+    const byLifespan = inventors.sort((x, y) => {(x.passed - x.year) - (y.passed - y.year)});
+    console.table(byLifespan);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+    // (copy and paste the code below into Chrome Dev Tools after loading page)
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    // const links = Array.from(document.querySelectorAll('.mw-category a'));
+    // const de = links.map(link => link.text).filter(text => text.includes('de'));
+    // console.log(de);
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alphabetical = people.sort((x, y) => {
+      x_last = x.split(',')[0];
+      y_last = y.split(',')[0];
+      return (x_last <= y_last) ? -1 : 1;
+    });
+    console.log(alphabetical);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const vehicles = data.reduce((vehicles, vehicle) => {
+      vehicles[vehicle] = (vehicles[vehicle] || 0) + 1
+      return vehicles
+    }, {});
+    console.log(vehicles);
 
   </script>
 </body>
