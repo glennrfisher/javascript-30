@@ -17,29 +17,68 @@
       p.style.fontSize = '50px';
     }
 
+    // what code is changing the style?
+    // from dev tools, right-click on the element
+    // and choose "Break on... -> attribute modifications"
+
     // Regular
+    console.log('hello');
+
+    // list of objects
+    console.table(dogs);
 
     // Interpolated
+    console.log('hello %s', 'glenn');
 
     // Styled
+    console.log('%c hello', 'color:green;');
 
     // warning!
+    console.warn('warning: oh no!');
 
     // Error :|
+    console.error('error: oh no!');
 
     // Info
+    console.info('info: pro tip!');
 
     // Testing
+    console.assert(1 === 2, 'one is not equal to two');
 
     // clearing
+    // console.clear();
 
     // Viewing DOM Elements
+    const p = document.querySelector('p');
+    console.dir(p);
 
     // Grouping together
+    console.group('group_name');
+    console.log('first message');
+    console.log('second message');
+    console.groupEnd('group_name');
+
+    // grouping together (collapsed)
+    dogs.forEach(dog => {
+      console.groupCollapsed(dog.name);
+      console.log(`dog name: ${dog.name}`);
+      console.log(`dog age: ${dog.age}`);
+      console.groupEnd(dog.name);
+    });
 
     // counting
+    console.count('count_id');
+    console.count('count_id');
+    console.count('count_id');
 
     // timing
+    console.time('time_id');
+    fetch('https://api.github.com/users/glennrfisher')
+      .then(data => data.json())
+      .then(json => {
+        console.timeEnd('time_id');
+        console.log(json);
+      });
 
   </script>
 </body>
