@@ -7,6 +7,14 @@
 </head>
 <body>
 <script>
+const keys = [];
+const code = 'glenn';
+window.addEventListener('keyup', e => {
+  keys.push(e.key);
+  keys.splice(-code.length-1, keys.length-code.length)
+  const str = keys.join('');
+  if (str.includes(code)) cornify_add();
+});
 </script>
 </body>
 </html>
