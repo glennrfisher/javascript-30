@@ -40,6 +40,25 @@
 <button></button>
 <script>
 
+const divs = document.querySelectorAll('div');
+const button = document.querySelector('button');
+
+function logText(e) {
+  console.log(this.classList.value)
+  e.stopPropagation(); // stop propagating the event
+}
+
+// event is captured (inner->outer), then bubbled (outer->inner)
+// event is triggered when bubbling up nested elements (3->2->1)
+// divs.forEach(div => div.addEventListener('click', logText));
+
+// event is captured (inner->outer), then bubbled (outer->inner)
+// event is triggered when capturing down nested elements (1->2->3)
+// divs.forEach(div => div.addEventListener('click', logText, { capture: true }));
+
+// event listener is unbound after the event is triggered
+button.addEventListener('click', _ => { console.log('clicked') }, { once: true });
+
 </script>
 </body>
 </html>
