@@ -36,7 +36,58 @@
   const holes = document.querySelectorAll('.hole');
   const scoreBoard = document.querySelector('.score');
   const moles = document.querySelectorAll('.mole');
+  let lastHole; // the last hole, to avoid repeats
+  let timeUp = false; // has the game time elapsed?
+  let score = 0; // the number of whacked moles
 
+  function randomTime(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+
+  function randomHole(holes) {
+    if (holes.length == 0) return;
+    if (holes.length == 1) return holes[1];
+
+    const id = Math.floor(Math.random() * holes.length);
+    let hole = holes[id];
+
+    // avoid the same hole as last time
+    if (hole == lastHole) {
+      if (id == 0) hole = holes[id+1];
+      else if (id == holes.length-1) hole = holes[id-1];
+      else hole = holes[id + (Math.random() > 0.5 ? 1 : -1)];
+    }
+    lastHole = hole;
+
+    return hole;
+  }
+
+  function peep() {
+    const time = randomTime(1000, 2000);
+    const hole = randomHole(holes);
+    hole.classList.add('up');
+    setTimeout(_ => {
+      hole.classList.remove('up')
+      if (!timeUp) peep();
+    }, time);
+  }
+
+  function startGame() {
+    scoreBoard.textContent = 0;
+    timeUp = false;
+    score = 0;
+    peep();
+    setTimeout(_ => timeUp = true, 10000);
+  }
+
+  function bonk(e) {
+    if (!e.isTrusted) return;
+    score++;
+    this.parentNode.classList.remove('up');
+    scoreBoard.textContent = score;
+  }
+
+  moles.forEach(mole => mole.addEventListener('click', bonk));
 </script>
 </body>
 </html>
